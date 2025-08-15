@@ -71,6 +71,30 @@
 All processing happens \*\*locally\*\* - no servers, no tracking.
 
 
+ 📦 Files Structure
 
-\## 📦 Files Structure
+encryptify/
+├── icons/ # Extension icons
+├── screenshots/ # Store promo images here
+├── background.js # Background service worker
+├── popup.html # Main interface
+├── popup.js # Core encryption logic
+├── manifest.json # Extension configuration
+└── README.md # This file
 
+ 🔒 Privacy Guarantee
+- No analytics or tracking
+- No data leaves your browser
+- Open-source and auditable
+
+ 🤝 Contributing
+Found a bug? Want to improve Encryptify?  
+1. Fork the repo  
+2. Create a branch (`git checkout -b feature/improvement`)  
+3. Commit changes (`git commit -m 'Add new feature'`)  
+4. Push to branch (`git push origin feature/improvement`)  
+5. Open a Pull Request  
+
+
+
+💡 **Pro Tip**: Use generated passwords with at least 12 characters for maximum security.
