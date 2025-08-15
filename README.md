@@ -11,6 +11,7 @@
 &nbsp;**Features**
 
 
+
 \- \*\*Military-grade encryption\*\* (AES-256 with PBKDF2 key derivation)
 
 \- \*\*Zero data collection\*\* - Everything happens in your browser
@@ -86,6 +87,8 @@ encryptify/
 - No data leaves your browser
 - Open-source and auditable
 
+Read our full policy: [https://github.com/Timessless01/Encryptify/blob/main/privacy-policy.md)
+
  🤝 Contributing
 Found a bug? Want to improve Encryptify?  
 1. Fork the repo  
@@ -93,7 +96,6 @@ Found a bug? Want to improve Encryptify?
 3. Commit changes (`git commit -m 'Add new feature'`)  
 4. Push to branch (`git push origin feature/improvement`)  
 5. Open a Pull Request  
-
 
 
 
