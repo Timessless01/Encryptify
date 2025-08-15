@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encryptify - Secure Encryption</title>
+  <style>
+    :root {
+      --primary: #4a6bff;
+      --primary-dark: #3a56cc;
+      --background: #f8f9fa;
+      --card: #ffffff;
+      --text: #333333;
+      --text-light: #666666;
+      --border: #e0e0e0;
+      --success: #28a745;
+      --error: #dc3545;
+    }
+
+    body {
+      width: 350px;
+      padding: 0;
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+    }
+
+    .header {
+      background-color: var(--primary);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: var(--border);
+    }
+
+    .tab-btn {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .tab {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab.active {
+      display: block;
+    }
+
+    .card {
+      background-color: var(--card);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      resize: vertical;
+      transition: border 0.2s;
+      box-sizing: border-box;
+    }
+
+    textarea:focus, input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    textarea {
+      min-height: 80px;
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background-color: #d0d0d0;
+    }
+
+    .password-strength-container {
+      margin: 10px 0;
+    }
+
+    .password-strength-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 3px;
+    }
+
+    .password-strength-bar {
+      height: 4px;
+      background-color: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .strength-indicator {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s, background-color 0.3s;
+    }
+
+    .verification-status {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      font-size: 0.9rem;
+    }
+
+    .status-icon {
+      margin-right: 5px;
+      font-size: 1.2rem;
+    }
+
+    .success {
+      color: var(--success);
+    }
+
+    .error {
+      color: var(--error);
+    }
+
+    .password-generator-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .password-length-input {
+      width: 60px !important;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>🔒 Encryptify</h2>
+  </div>
+
+  <div class="container">
+    <div class="tab-buttons">
+      <button class="tab-btn active" id="encryptTabBtn">Encrypt</button>
+      <button class="tab-btn" id="decryptTabBtn">Decrypt</button>
+      <button class="tab-btn" id="passwordTabBtn">Generator</button>
+    </div>
+
+    <div id="encrypt" class="tab active">
+      <div class="card">
+        <h3>🔐 Encrypt Text</h3>
+        
+        <div class="input-group">
+          <label for="plaintext">Text to encrypt:</label>
+          <textarea id="plaintext" placeholder="Enter your sensitive text here..."></textarea>
+        </div>
+        
+        <div class="input-group">
+          <label for="encryptKey">Encryption password:</label>
+          <input type="password" id="encryptKey" placeholder="Create encryption password">
+        </div>
+        
+        <div class="input-group">
+          <label for="encryptKeyVerify">Verify password:</label>
+          <input type="password" id="encryptKeyVerify" placeholder="Re-enter encryption password">
+          <div class="verification-status" id="encryptVerifyStatus">
+            <span class="status-icon">🔒</span>
+            <span>Passwords must match</span>
+          </div>
+        </div>
+        
+        <div class="password-strength-container">
+          <div class="password-strength-label">
+            <span>Password strength:</span>
+            <span id="strengthText">Weak</span>
+          </div>
+          <div class="password-strength-bar">
+            <div class="strength-indicator" id="passwordStrengthBar"></div>
+          </div>
+        </div>
+        
+        <button class="btn" id="encryptBtn">Encrypt</button>
+        
+        <div class="input-group">
+          <label for="encryptedOutput">Encrypted output:</label>
+          <textarea id="encryptedOutput" placeholder="Encrypted output will appear here..." readonly></textarea>
+        </div>
+        
+        <button class="btn btn-secondary" id="copyEncryptedBtn">Copy Encrypted Text</button>
+      </div>
+    </div>
+
+    <div id="decrypt" class="tab">
+      <div class="card">
+        <h3>🔓 Decrypt Text</h3>
+        
+        <div class="input-group">
+          <label for="ciphertext">Encrypted text:</label>
+          <textarea id="ciphertext" placeholder="Paste your encrypted text here..."></textarea>
+        </div>
+        
+        <div class="input-group">
+          <label for="decryptKey">Decryption password:</label>
+          <input type="password" id="decryptKey" placeholder="Enter decryption password">
+        </div>
+        
+        <button class="btn" id="decryptBtn">Decrypt</button>
+        
+        <div class="input-group">
+          <label for="decryptedOutput">Decrypted text:</label>
+          <textarea id="decryptedOutput" placeholder="Decrypted text will appear here..." readonly></textarea>
+        </div>
+        
+        <button class="btn btn-secondary" id="copyDecryptedBtn">Copy Decrypted Text</button>
+      </div>
+    </div>
+
+    <div id="password" class="tab">
+      <div class="card">
+        <h3>🎲 Generate Strong Password</h3>
+        
+        <div class="password-generator-controls">
+          <input type="number" id="passwordLength" min="8" max="32" value="16" class="password-length-input">
+          <button class="btn" id="generatePasswordBtn">Generate</button>
+        </div>
+        
+        <div class="input-group">
+          <label for="generatedPassword">Generated password:</label>
+          <input type="text" id="generatedPassword" placeholder="Generated password will appear here..." readonly>
+        </div>
+        
+        <div class="password-strength-container">
+          <div class="password-strength-label">
+            <span>Password strength:</span>
+            <span id="generatedStrengthText">Strong</span>
+          </div>
+          <div class="password-strength-bar">
+            <div class="strength-indicator" id="generatedPasswordStrength"></div>
+          </div>
+        </div>
+        
+        <button class="btn btn-secondary" id="copyPasswordBtn">Copy Password</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
